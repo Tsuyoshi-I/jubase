@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/top.css">
+  <title>jubase</title>
+</head>
+
+<body>
+  <!-- <div id="test">ロード用</div> -->
+  <div class="mask">
+    <div class="container">
+      <h1 class="mainTitle">ju<span>b</span>ase</h1>
+      <div class="startWrap">
+        <a href="./workstation.html" class="toWorkStation">
+          Let's Get Started!
+        </a>
+        <p class="modalLink" id="modalLink">
+          What's JUBASE?
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- modal: aboslute -->
+  <div class="modal" id="modal">
+    <p class="whatsJubase">JUBASEって何？</p>
+    <div class="descWrap">
+      <p>簡易的なオーディオシーケンサーです。勿論cubaseのパクリだよ。</p>
+      <p>“キュー”ベース、のパクリ。9の次は10だからね。仕方ないね。</p>
+    </div>
+    <div class="closeBtn" id="closeBtn">close</div>
+  </div>
+  <audio src="./sound/papa1.mp3" id="audio">
+    あなたのブラウザーは <code>audio</code> 要素に対応していません。
+  </audio>
+  <script src="./js/top.js"></script>
+</body>
+
+</html>

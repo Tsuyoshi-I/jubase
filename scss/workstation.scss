@@ -1,0 +1,164 @@
+@import "reset";
+@import "common";
+$img_p: "../img/";
+$ws-space: 5px; // workstation共通余白
+$item_gray: rgb(189, 189, 189);
+$item_gray_divi: rgb(255, 255, 255);
+
+body {
+  min-width: 1280px;
+  height: 100vh;
+  min-height: 700px;
+  background-color: #07182b;
+  padding: $ws-space;
+  color: #fff;
+}
+
+.bord {
+  width: 100%;
+  height: 100%;
+  border-radius: $common_radius;
+  background-color: #424850;
+}
+
+.gridContainer {
+  width: 100%;
+  min-height: 100%;
+  // min-height: 800px - $ws-space * 4;
+  display: grid;
+  grid-template-rows: 40px 75px 1fr;
+  grid-template-columns: 190px 1fr;
+  grid-gap: $ws-space;
+  grid-template-areas:
+    "m-control m-control"
+    "import sequence"
+    "inspector sequence"
+}
+
+.masterControl {
+  grid-area: m-control;
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+
+  background-color: rgb(140, 140, 140);
+}
+.sequence {
+  grid-area: sequence;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 12.5% 1fr;
+  grid-template-rows: 20px 1fr;
+  grid-template-areas: 
+    "... timeLine"
+    "trackList eventList";
+}
+.audioImport {
+  grid-area: import;
+  padding: 20px;
+  .import {
+    @include common_btn(#FF9A36, #FF9A36, 0);
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+  }
+}
+.inspector {
+  grid-area: inspector;
+}
+
+.slideItem {
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  padding: 3px 15px;
+  background-color: $item_gray;
+  border-radius: 11px;
+  font-size: 14px;
+  border :1px solid rgb(201, 201, 201);
+  &__vel {
+    width: 200px + 10px;// 数字の桁数(outputタグ)が増えてもずれないように　
+    margin-right: 55px;
+  }
+  &__bpm {
+  }
+  &__pan {
+    margin-left: auto;
+  }
+}
+
+.slideBar {
+  margin: 0 5px;
+  &__vel {
+
+  }
+  &__bpm {
+    width: 400px;
+  }
+  &__pan {
+    
+  }
+}
+
+.playState {
+  margin-right: 55px;
+  display: flex;
+}
+
+.ps {
+  width: 40px;
+  height: 30px;
+  box-shadow: inset 2px 2px #ddd;
+  background-color: #fff;
+  &__play {
+    border-radius: $common_radius 0 0 $common_radius;
+  }
+  &__pause {
+    font-size: inherit;
+  }
+  &__stop {
+    border-radius: 0 $common_radius $common_radius 0;
+  }
+}
+
+
+// playState：icon(fontawesome)
+.ps {
+  font-size: 15px;
+  &__play i {
+    color: $common_green;
+  }
+  // &__pause i {
+
+  // }
+  // &__stop i {
+
+  // }
+}
+
+.timeLine {
+  grid-area: timeLine;
+  background-color: rgb(42, 47, 52);
+}
+
+.trackList {
+  grid-area: trackList;
+}
+
+.trackIndex {
+  height: 100px;
+  border-right: 1px solid $item_gray_divi;
+  background-color: $item_gray;
+}
+
+.eventList {
+  grid-area: eventList;
+  overflow: scroll;
+}
+
+.eventItem {
+  background: linear-gradient(to right , green, red);
+  width: 2000px;
+  height: 100px;
+}

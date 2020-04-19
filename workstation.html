@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/6270f2e9f0.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/workstation.css">
+  <title>jubase workstation</title>
+</head>
+
+<body>
+  <div class="gridContainer">
+    <div class="masterControl bord">
+      <div class="playState">
+        <button class="ps ps__play" type="button">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="ps ps__pause" type="button">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="ps ps__stop" type="button">
+          <i class="fas fa-stop"></i>
+        </button>
+      </div>
+      <div class="slideItem slideItem__vel">
+        <label for="vel">vel</label>
+        <input class="slideBar slideBar__vel" type="range" value="0" min="0" max="100" step="1"
+          oninput="document.getElementById('vel').value=this.value">
+        <output id="vel">0</output>
+      </div>
+      <div class="slideItem slideItem__bpm">
+        <label for="">bpm</label>
+        <input class="slideBar slideBar__bpm" type="range" value="30" min="30" max="400" step="1"
+          oninput="document.getElementById('bpm').value=this.value">
+        <output id="bpm">30</output>
+      </div>
+      <div class="slideItem slideItem__pan">
+        <label for="">pan</label>
+        <input class="slideBar slideBar__pan" type="range" value="0" min="-50" max="50" step="1"
+          oninput="document.getElementById('pan').value=this.value">
+        <output id="pan">0</output>
+      </div>
+    </div>
+    <div class="audioImport bord">
+      <button class="import" type="button">Audio Import</button>
+    </div>
+    <div class="inspector bord"></div>
+    <div class="sequence bord">
+      <div class="timeLine"></div>
+      <ul class="trackList">
+        <li class="trackIndex">
+        </li>
+      </ul>
+      <ul class="eventList">
+        <li class="eventItem"></li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

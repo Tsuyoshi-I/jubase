@@ -1,0 +1,254 @@
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body {
+  line-height: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+nav, ul, li {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+a:visited {
+  color: inherti;
+}
+
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+input, select {
+  vertical-align: middle;
+}
+body {
+  font-family: "Helvetica Bold" "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+}
+
+body {
+  background-image: url("../img/top_bg.jpg");
+  background-size: cover;
+}
+
+.mask {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(#05004acc, #4D4D4D);
+  position: relative;
+}
+
+.container {
+  width: 37%;
+  min-width: 463px;
+  max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mainTitle {
+  margin-bottom: 1em;
+  font-family: monospace;
+  font-size: 78px;
+  color: rgba(255, 255, 255, 0.701);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 4px #222;
+}
+
+.mainTitle span {
+  text-shadow: 4px 4px 0px #488bff;
+}
+
+.startWrap {
+  width: 100%;
+  padding: 78px;
+  background-color: #fffa;
+  border-radius: 7px;
+  box-shadow: #333 3px 6px #ccc;
+}
+
+.toWorkStation {
+  display: block;
+  padding: 0.8em 0 0.8em 0;
+  border: 2px solid #55B25F;
+  border-radius: 7px;
+  background-color: #55B25F;
+  box-shadow: 0px 3px 6px #777;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  transition: color 150ms ease-out;
+  margin: 0 20px 2em 20px;
+  font-size: 28px;
+}
+
+.toWorkStation:hover {
+  color: #55B25F;
+  background-color: #fff;
+}
+
+.modalLink {
+  font-weight: bold;
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+
+.modalLink:hover {
+  color: #999;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 86%;
+  height: 83%;
+  padding: 50px;
+  background-color: #fffd;
+  border-radius: 7px;
+  transition: transform 150ms ease-out;
+}
+
+.modal.toggle {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.whatsJubase {
+  font-size: 36px;
+  font-weight: bold;
+  color: #4D4D4D;
+  padding: 22px 40px;
+  border-bottom: 1px solid #4D4D4D;
+}
+
+.descWrap {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  width: 100%;
+  padding: 50px;
+  font-size: 21px;
+  line-height: 1.8em;
+}
+
+.descWrap > p {
+  text-align: center;
+}
+
+.closeBtn {
+  display: block;
+  padding: 0.8em 0 0.8em 0;
+  border: 2px solid #55B25F;
+  border-radius: 7px;
+  background-color: #55B25F;
+  box-shadow: 0px 3px 6px #777;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  transition: color 150ms ease-out;
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  padding: 1em 50px;
+}
+
+.closeBtn:hover {
+  color: #55B25F;
+  background-color: #fff;
+}
+/*# sourceMappingURL=top.css.map */

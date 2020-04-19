@@ -1,0 +1,273 @@
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body {
+  line-height: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+nav, ul, li {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+a:visited {
+  color: inherti;
+}
+
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+input, select {
+  vertical-align: middle;
+}
+body {
+  font-family: "Helvetica Bold" "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+}
+
+body {
+  min-width: 1280px;
+  height: 100vh;
+  min-height: 700px;
+  background-color: #07182b;
+  padding: 5px;
+  color: #fff;
+}
+
+.bord {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  background-color: #424850;
+}
+
+.gridContainer {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 40px 75px 1fr;
+  grid-template-columns: 190px 1fr;
+  grid-gap: 5px;
+  grid-template-areas: "m-control m-control" "import sequence" "inspector sequence";
+}
+
+.masterControl {
+  grid-area: m-control;
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+  background-color: #8c8c8c;
+}
+
+.sequence {
+  grid-area: sequence;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 12.5% 1fr;
+  grid-template-rows: 20px 1fr;
+  grid-template-areas: "... timeLine" "trackList eventList";
+}
+
+.audioImport {
+  grid-area: import;
+  padding: 20px;
+}
+
+.audioImport .import {
+  display: block;
+  padding: 0 0 0 0;
+  border: 2px solid #FF9A36;
+  border-radius: 7px;
+  background-color: #FF9A36;
+  box-shadow: 0px 3px 6px #777;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  transition: color 150ms ease-out;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+}
+
+.audioImport .import:hover {
+  color: #FF9A36;
+  background-color: #fff;
+}
+
+.inspector {
+  grid-area: inspector;
+}
+
+.slideItem {
+  display: flex;
+  align-items: center;
+  padding: 3px 15px;
+  background-color: #bdbdbd;
+  border-radius: 11px;
+  font-size: 14px;
+  border: 1px solid #c9c9c9;
+}
+
+.slideItem__vel {
+  width: 210px;
+  margin-right: 55px;
+}
+
+.slideItem__pan {
+  margin-left: auto;
+}
+
+.slideBar {
+  margin: 0 5px;
+}
+
+.slideBar__bpm {
+  width: 400px;
+}
+
+.playState {
+  margin-right: 55px;
+  display: flex;
+}
+
+.ps {
+  width: 40px;
+  height: 30px;
+  box-shadow: inset 2px 2px #ddd;
+  background-color: #fff;
+}
+
+.ps__play {
+  border-radius: 7px 0 0 7px;
+}
+
+.ps__pause {
+  font-size: inherit;
+}
+
+.ps__stop {
+  border-radius: 0 7px 7px 0;
+}
+
+.ps {
+  font-size: 15px;
+}
+
+.ps__play i {
+  color: #55B25F;
+}
+
+.timeLine {
+  grid-area: timeLine;
+  background-color: #2a2f34;
+}
+
+.trackList {
+  grid-area: trackList;
+}
+
+.trackIndex {
+  height: 100px;
+  border-right: 1px solid white;
+  background-color: #bdbdbd;
+}
+
+.eventList {
+  grid-area: eventList;
+  overflow: scroll;
+}
+
+.eventItem {
+  background: linear-gradient(to right, green, red);
+  width: 2000px;
+  height: 100px;
+}
+/*# sourceMappingURL=workstation.css.map */

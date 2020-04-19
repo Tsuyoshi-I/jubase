@@ -1,0 +1,45 @@
+// 共通スタイル
+
+$common_radius: 7px;
+$common_green: #55B25F;
+$common_lh: 1.8em;
+
+body {
+  font-family: 
+    "Helvetica Bold"
+    "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Meiryo",
+    sans-serif;
+}
+
+@mixin common_transition($prop: all, $duration: 150ms){
+  transition: $prop $duration ease-out;
+  @content;
+}
+
+@mixin common_shadow($x: 0px, $y: 3px, $b: 6px, $c: #ccc) {
+  box-shadow: $x $y $b $c;
+  @content;
+}
+
+@mixin common_btn ($bgc: $common_green, $bdc: $common_green, $pd: 0.8em){
+  display: block;
+  padding: $pd 0 $pd 0;
+  border: 2px solid $bdc;
+  border-radius: $common_radius;
+  background-color: $bgc;
+  @include common_shadow($c: #777);
+
+  color: white;
+  font-weight: bold;
+  text-align: center;
+
+  @include common_transition(color);
+  &:hover {
+    color: $bgc;
+    background-color: #fff;
+  }
+}
