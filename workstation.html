@@ -13,13 +13,13 @@
   <div class="gridContainer">
     <div class="masterControl bord">
       <div class="playState">
-        <button class="ps ps__play" type="button">
+        <button class="ps ps__play" id="playBtn" type="button">
           <i class="fas fa-play"></i>
         </button>
-        <button class="ps ps__pause" type="button">
+        <button class="ps ps__pause" id="pauseBtn" type="button">
           <i class="fas fa-pause"></i>
         </button>
-        <button class="ps ps__stop" type="button">
+        <button class="ps ps__stop" id="stopBtn" type="button">
           <i class="fas fa-stop"></i>
         </button>
       </div>
@@ -43,14 +43,15 @@
       </div>
     </div>
     <div class="audioImport bord">
-      <input class="import" id="file" type="file" name="files[]" multiple>Audio Import
+      <input class="import" id="audioImport" type="file" name="files[]" multiple>Audio Import
       <div id="result"></div>
     </div>
     <div class="inspector bord"></div>
     <div class="sequence bord">
       <div class="timeLine"></div>
-      <ul class="trackList">
-        <li class="trackIndex">
+      <ul class="trackList" id="trackList">
+        <li class="trackIndex" id="track100">
+
         </li>
       </ul>
       <ul class="eventList">
