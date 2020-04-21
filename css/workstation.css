@@ -163,7 +163,7 @@ body {
 
 .audioImport .import {
   display: block;
-  padding: 0 0 0 0;
+  padding: 6px 0 6px 0;
   border: 2px solid #FF9A36;
   border-radius: 7px;
   background-color: #FF9A36;
@@ -256,8 +256,18 @@ body {
 
 .trackIndex {
   height: 100px;
+  padding: 10px;
   border-right: 1px solid white;
   background-color: #bdbdbd;
+}
+
+.trackName {
+  font-size: 12px;
+  padding: 2px;
+  overflow-x: scroll;
+  background-color: #888888;
+  box-shadow: 1px 1px rgba(87, 87, 87, 0.829);
+  border-radius: 3px;
 }
 
 .eventList {

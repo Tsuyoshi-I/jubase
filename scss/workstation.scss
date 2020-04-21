@@ -58,7 +58,9 @@ body {
   grid-area: import;
   padding: 20px;
   .import {
-    @include common_btn(#FF9A36, #FF9A36, 0);
+    // ここの6pxは目分量。中央寄せの意味はない。
+    // あまりよろしくない。
+    @include common_btn(#FF9A36, #FF9A36, 6px);
     width: 100%;
     height: 100%;
     font-size: 16px;
@@ -81,8 +83,8 @@ body {
     width: 200px + 10px;// 数字の桁数(outputタグ)が増えてもずれないように　
     margin-right: 55px;
   }
-  &__bpm {
-  }
+  // &__bpm {
+  // }
   &__pan {
     margin-left: auto;
   }
@@ -90,15 +92,15 @@ body {
 
 .slideBar {
   margin: 0 5px;
-  &__vel {
+  // &__vel {
 
-  }
+  // }
   &__bpm {
     width: 400px;
   }
-  &__pan {
+  // &__pan {
     
-  }
+  // }
 }
 
 .playState {
@@ -148,8 +150,18 @@ body {
 
 .trackIndex {
   height: 100px;
+  padding: 10px;
   border-right: 1px solid $item_gray_divi;
   background-color: $item_gray;
+}
+
+.trackName {
+  font-size: 12px;
+  padding: 2px;
+  overflow-x: scroll;
+  background-color: rgb(136, 136, 136);
+  box-shadow: 1px 1px rgba(87, 87, 87, 0.829);
+  border-radius: 3px;
 }
 
 .eventList {

@@ -1,31 +1,62 @@
-const audioImport = document.getElementById('audioImport')
+const audioImport = document.getElementById('audioImportBtn')
 const trackList = document.getElementById('trackList')
 let idManege = 0
 
-const allProcess = (e) => {
-  // li(track)作成
+const createTrack = (e) => {
   const trackElement = document.createElement('li')
   trackElement.classList.add("trackIndex")
   trackElement.id = `track${idManege}`
   idManege++
 
-  // file読み込み
+  const audioElement = document.createElement('audio')
+
+  const trackName = document.createElement('p')
+  trackName.classList.add('trackName')
+
   const audioData = e.target.files[0]
   if (!audioData.type.match('audio.*')) {
-    // チェック
     alert('音声を選択してください')
     return
   }
-  const reader = new FileReader()
-  reader.readAsDataURL(audioData)// reader.resultにdataURLになる
 
-  // audio要素作成
+  const reader = new FileReader()
   reader.onload = () => {
-    const audioElement = document.createElement('audio')
     audioElement.src = reader.result
+    console.log(audioData.name)
+    trackName.textContent = audioData.name
+    trackElement.appendChild(trackName)
     trackElement.appendChild(audioElement)
     trackList.appendChild(trackElement)
   }
+  reader.readAsDataURL(audioData)
 }
 
-audioImport.addEventListener('input', allProcess, false)
+audioImport.addEventListener('input', createTrack, false)
+
+
+// 以下再生処理
+
+const playBtn = document.getElementById('playBtn')
+
+const playAudio = () => {
+  const audioCtx = new AudioContext()
+  const audioElements = document.querySelectorAll('#trackList audio')[0]//とりあえず
+  const trackCtx = audioCtx.createMediaElementSource(audioElements)
+  trackCtx.connect(audioCtx.destination)
+
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+
+  // play or pause track depending on state
+  if (playBtn.dataset.playing === 'false') {
+    audioElement.play();
+    playBtn.dataset.playing = 'true';
+  } else if (playBtn.dataset.playing === 'true') {
+    audioElement.pause();
+    playBtn.dataset.playing = 'false';
+  }
+}
+playBtn.addEventListener('click', playAudio)
+
+
