@@ -126,6 +126,9 @@ body {
   &__stop {
     border-radius: 0 $common_radius $common_radius 0;
   }
+  &__loop.active {
+    background-color: red;
+  }
 }
 
 

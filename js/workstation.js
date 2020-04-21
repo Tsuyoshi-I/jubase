@@ -4,10 +4,11 @@
 const audioImport = document.getElementById('audioImportBtn')// ローカル音声ファイルインポート用ボタン
 const trackList = document.getElementById('trackList')// 音源(audioタグ)貼っ付ける場所 ulタグ
 
-// 再生・停止
+// 再生・停止・ループなどなど
 const playBtn = document.getElementById('playBtn')// 全体(以下master)再生ボタン
 const pauseBtn = document.getElementById('pauseBtn')// master一時停止ボタン
 const stopBtn = document.getElementById('stopBtn')// master停止ボタン
+const loopBtn = document.getElementById('loopBtn')// ループボタン
 
 // master音量コントロールスライダー
 const velSlider = document.getElementById('velSlider')// master音量スライダー
@@ -61,6 +62,8 @@ const createElement = (audioData) => {
 
   // audio作成
   const audioElement = document.createElement('audio')
+  audioElement.loop = false
+
   // トラック名用pタグ作成
   const trackName = document.createElement('p')
   trackName.classList.add('trackName')
@@ -73,7 +76,7 @@ const createElement = (audioData) => {
   equalizBar.max = 10000
   equalizBar.step = 1
   equalizBar.value = 700
-  filter.type = 'bandpass'
+  filter.type = 'lowpass'
   equalizBar.addEventListener('input', () => {
     filter.frequency.value = equalizBar.value
   })
@@ -123,8 +126,16 @@ const renderTrack = (e) => {
       trackElement: trackElement,
     })
 
+    // pushされたらじゃないと多分not definedって言われる
+    loopBtn.addEventListener('click', () => {
+      tracks.forEach(track => {
+        track.trackElement.children[1].loop = !track.trackElement.children[1].loop
+      })
+      loopBtn.classList.toggle('active')
+    })
+
     // trackElement(liタグ)の子要素としてaudioタグをぶち込む
-    tracks.forEach(track => trackList.appendChild(track.trackElement))
+    tracks.forEach(track => { trackList.appendChild(track.trackElement) })
     audioImport.value = "" // こいつのお陰で同じファイルを連続選択出来る(※valueが保持されると同じファイルを選択してもinputイベントが発火しない)
   }
   reader.readAsDataURL(audioData)
@@ -190,5 +201,3 @@ const setPanSliderValue = () => {
   panOutput.textContent = panSlider.value
 }
 panSlider.addEventListener('input', setPanSliderValue, false)
-
-

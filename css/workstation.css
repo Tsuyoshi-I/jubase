@@ -242,6 +242,10 @@ body {
   border-radius: 0 7px 7px 0;
 }
 
+.ps__loop.active {
+  background-color: red;
+}
+
 .ps {
   font-size: 15px;
 }
