@@ -86,7 +86,11 @@ body {
   // &__bpm {
   // }
   &__pan {
+    width: 233px;// velと同じ理由
     margin-left: auto;
+    output {
+      margin: 0 auto;
+    }
   }
 }
 

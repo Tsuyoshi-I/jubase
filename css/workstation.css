@@ -202,7 +202,12 @@ body {
 }
 
 .slideItem__pan {
+  width: 233px;
   margin-left: auto;
+}
+
+.slideItem__pan output {
+  margin: 0 auto;
 }
 
 .slideBar {

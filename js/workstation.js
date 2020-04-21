@@ -14,14 +14,25 @@ const velSlider = document.getElementById('velSlider')// master音量スライ�
 const velOutput = document.getElementById('vel')// 数値表示用outputタグ
 velOutput.textContent = 0 // この辺は初期化
 velSlider.value = 1
-velSlider.min = -1.0
+velSlider.min = 0
 velSlider.max = 3.4
 velSlider.step = 0.01
 
-// コンテキスト・APIノード
+// masterPanコントロールスライダー
+const panSlider = document.getElementById('panSlider')
+const panOutput = document.getElementById('pan')
+panOutput.textContent = 0
+panSlider.value = 0
+panSlider.min = -1
+panSlider.max = 1
+panSlider.step = 0.01
+
+// コンテキスト・API・webaudioApiノードとか
 const reader = new FileReader()// ローカルファイル読み込み用API
 const audioCtx = new AudioContext()// webAudioApiコンテキスト
 const gainNode = audioCtx.createGain()// 音量用ノード作成
+const pannerOptions = { pan: 0 }
+const panner = new StereoPannerNode(audioCtx, pannerOptions)
 
 // trackListに入れるliタグのid管理(お粗末)
 let idManege = 0
@@ -86,7 +97,7 @@ const renderTrack = (e) => {
     // 音声ソースを各ノードに接続
     // 末尾(audioCtx.destination)はスピーカだと思えばいい
     // それまでは各処理に必要なエフェクター系
-    trackCtx.connect(gainNode).connect(audioCtx.destination)
+    trackCtx.connect(gainNode).connect(panner).connect(audioCtx.destination)
 
     // ソース管理用配列(tracks)にオブジェクトの形式で格納
     tracks.push({
@@ -144,8 +155,19 @@ stopBtn.addEventListener('click', stopAudio)
  * 該当箇所にスライダーのvalueを入れてるだけ。
  * ２行目は数値表示。
  */
-const setSliderValue = () => {
+const setVelSliderValue = () => {
   gainNode.gain.value = velSlider.value
   velOutput.textContent = velSlider.value
 }
-velSlider.addEventListener('input', setSliderValue, false)
+velSlider.addEventListener('input', setVelSliderValue, false)
+
+/**
+ * 【track一括pan調整】
+ * 該当箇所にスライダーのvalueを入れてるだけ。
+ * ２行目は数値表示。
+ */
+const setPanSliderValue = () => {
+  panner.pan.value = panSlider.value
+  panOutput.textContent = panSlider.value
+}
+panSlider.addEventListener('input', setPanSliderValue, false)

@@ -29,16 +29,15 @@
         <output id="vel"></output>
       </div>
       <div class="slideItem slideItem__bpm">
-        <label for="">bpm</label>
+        <label for="bpm">bpm</label>
         <input class="slideBar slideBar__bpm" id="bpmSlider" type="range" value="30" min="30" max="400" step="1"
           oninput="document.getElementById('bpm').value=this.value">
         <output id="bpm">30</output>
       </div>
       <div class="slideItem slideItem__pan">
-        <label for="">pan</label>
-        <input class="slideBar slideBar__pan" type="range" value="0" min="-50" max="50" step="1"
-          oninput="document.getElementById('pan').value=this.value">
-        <output id="pan">0</output>
+        <label for="pan">pan</label>
+        <input class="slideBar slideBar__pan" id="panSlider" type="range">
+        <output id="pan"></output>
       </div>
     </div>
     <div class="audioImport bord">
@@ -53,8 +52,8 @@
       <ul class="eventList"></ul>
     </div>
   </div>
-  <script src="js/otameshi.js"></script>
-  <!-- <script src="js/workstation.js"></script> -->
+  <!-- <script src="js/otameshi.js"></script> -->
+  <script src="js/workstation.js"></script>
 </body>
 
 </html>
