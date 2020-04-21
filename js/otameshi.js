@@ -6,12 +6,6 @@ const audioCtx = new AudioContext()
 let idManege = 0
 
 const tracks = [] // ここにトラックが全部入る
-// tracks = [
-// {
-//   trackElement: trackElemtnt,
-//   
-// },
-// ]
 
 const createElement = (audioData) => {
   // li作ってクラスとid当ててid加算
@@ -48,40 +42,30 @@ const renderTrack = (e) => {
   reader.onload = () => {
     const [trackElement, audioElement, trackName] = createElement(audioData)
     audioElement.src = reader.result // srcにファイルソースをセット
-    tracks.push({
-      trackElement: trackElement
-    })
 
+    const trackCtx = audioCtx.createMediaElementSource(trackElement.children[1])
+    trackCtx.connect(audioCtx.destination)// ↓
+    tracks.push({
+      trackElement: trackElement,
+    })
     tracks.forEach(track => trackList.appendChild(track.trackElement))
     audioImport.value = "" // こいつのお陰で同じファイルを連続選択出来る
   }
   reader.readAsDataURL(audioData)
-
 }
 
 audioImport.addEventListener('input', renderTrack, false)
 
 // 以下再生処理
-// 以下は確か再生しなければ関係ない。一旦置いておいて再考。
 const playAudio = () => {
-  const audio1 = tracks[0].trackElement.children[1]
-  const audio2 = tracks[1].trackElement.children[1]
-  const trackCtx1 = audioCtx.createMediaElementSource(audio1)
-  const trackCtx2 = audioCtx.createMediaElementSource(audio2)
-  trackCtx1.connect(audioCtx.destination)
-  trackCtx2.connect(audioCtx.destination)
-
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
-  // play or pause track depending on state
   if (playBtn.dataset.playing === 'false') {
-    audio1.play();
-    audio2.play();
+    tracks.forEach(track => track.trackElement.children[1].play())
     playBtn.dataset.playing = 'true';
   } else if (playBtn.dataset.playing === 'true') {
-    audio1.pause();
-    audio2.pause();
+    tracks.forEach(track => track.trackElement.children[1].play())
     playBtn.dataset.playing = 'false';
   }
 }
