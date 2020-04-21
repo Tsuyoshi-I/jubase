@@ -12,14 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('audio')
 
   const toggleModal = () => {
-    // このaudioを変数(引数にできる)
     audio.currentTime = 0
     audio.play()
     modal.classList.toggle('toggle')
   }
-  // https://idotdesign.net/blog/web/htmlcss/audio-se-btn/
-  // クラス化出来るか？
-  // modalLinkcloseBtnが引数か？→一旦保留で
   modalLink.addEventListener('click', toggleModal)
   closeBtn.addEventListener('click', toggleModal)
 })

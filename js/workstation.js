@@ -3,8 +3,9 @@ const trackList = document.getElementById('trackList')
 const playBtn = document.getElementById('playBtn')
 const pauseBtn = document.getElementById('pauseBtn')
 const stopBtn = document.getElementById('stopBtn')
+const velSlider = document.getElementById('velSlider')
 const audioCtx = new AudioContext()
-// const source = audioCtx.createBufferSource()
+const gainNode = audioCtx.createGain()
 
 let idManege = 0
 
@@ -48,9 +49,9 @@ const renderTrack = (e) => {
 
     const trackCtx = audioCtx.createMediaElementSource(trackElement.children[1])
     trackCtx.connect(audioCtx.destination)// ↓
+    trackCtx.connect(gainNode).connect(audioCtx.destination)
     tracks.push({
       trackElement: trackElement,
-
     })
     tracks.forEach(track => trackList.appendChild(track.trackElement))
     audioImport.value = "" // こいつのお陰で同じファイルを連続選択出来る
@@ -61,6 +62,7 @@ const renderTrack = (e) => {
 audioImport.addEventListener('input', renderTrack, false)
 
 // 以下再生処理
+
 const playAudio = () => {
   if (audioCtx.state === 'suspended') {// suspended 一時停止中
     audioCtx.resume();// 一時停止中のものを再開
@@ -68,7 +70,6 @@ const playAudio = () => {
   tracks.forEach(track => track.trackElement.children[1].play())
 }
 playBtn.addEventListener('click', playAudio)
-
 
 // 以下一時停止処理
 const pauseAudio = () => {
@@ -85,9 +86,15 @@ const stopAudio = () => {
 }
 stopBtn.addEventListener('click', stopAudio)
 
-// audioCtx.decodeAudioData(, function (buffer) {
-//   source.buffer = buffer;
-
-//   source.connect(audioCtx.destination);
-//   source.loop = true;
-// })
+// velocityスライダー
+const velOutput = document.getElementById('vel')
+velOutput.textContent = 0
+velSlider.value = 1
+velSlider.min = -1.0
+velSlider.max = 3.4
+velSlider.step = 0.01
+const setSliderValue = () => {
+  gainNode.gain.value = velSlider.value
+  velOutput.textContent = velSlider.value
+}
+velSlider.addEventListener('input', setSliderValue, false)
