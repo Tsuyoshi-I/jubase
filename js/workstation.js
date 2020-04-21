@@ -35,8 +35,8 @@ const gainNode = audioCtx.createGain()// 音量用ノード作成
 const pannerOptions = { pan: 0 }
 const panner = new StereoPannerNode(audioCtx, pannerOptions)
 
-const WIDTH = 300
-const HEIGHT = 300
+const WIDTH = 600
+const HEIGHT = 99
 const analyser = audioCtx.createAnalyser()
 analyser.fftSize = 2048
 const bufferLength = analyser.frequencyBinCount
