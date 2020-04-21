@@ -33,6 +33,7 @@ const audioCtx = new AudioContext()// webAudioApiコンテキスト
 const gainNode = audioCtx.createGain()// 音量用ノード作成
 const pannerOptions = { pan: 0 }
 const panner = new StereoPannerNode(audioCtx, pannerOptions)
+const filter = audioCtx.createBiquadFilter()
 
 // trackListに入れるliタグのid管理(お粗末)
 let idManege = 0
@@ -64,9 +65,23 @@ const createElement = (audioData) => {
   const trackName = document.createElement('p')
   trackName.classList.add('trackName')
 
+  // イコライジング用要素作成
+  const equalizBar = document.createElement('input')
+  equalizBar.type = 'range'
+  equalizBar.id = 'equalizBar'
+  equalizBar.min = 200
+  equalizBar.max = 10000
+  equalizBar.step = 1
+  equalizBar.value = 700
+  filter.type = 'bandpass'
+  equalizBar.addEventListener('input', () => {
+    filter.frequency.value = equalizBar.value
+  })
+
   // 組み立て
   trackElement.appendChild(trackName)
   trackElement.appendChild(audioElement)
+  trackElement.appendChild(equalizBar)
   trackName.textContent = audioData.name
 
   return [trackElement, audioElement]
@@ -94,10 +109,14 @@ const renderTrack = (e) => {
     // 音声ソース作成
     const trackCtx = audioCtx.createMediaElementSource(trackElement.children[1])
 
-    // 音声ソースを各ノードに接続
+    // 音声ソースを各ノードに接続(オーディオグラフの作成)
     // 末尾(audioCtx.destination)はスピーカだと思えばいい
     // それまでは各処理に必要なエフェクター系
-    trackCtx.connect(gainNode).connect(panner).connect(audioCtx.destination)
+    trackCtx
+      .connect(gainNode)
+      .connect(panner)
+      .connect(filter)
+      .connect(audioCtx.destination)
 
     // ソース管理用配列(tracks)にオブジェクトの形式で格納
     tracks.push({
@@ -171,3 +190,5 @@ const setPanSliderValue = () => {
   panOutput.textContent = panSlider.value
 }
 panSlider.addEventListener('input', setPanSliderValue, false)
+
+
