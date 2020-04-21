@@ -3,6 +3,7 @@
 // インポート・レンダリング
 const audioImport = document.getElementById('audioImportBtn')// ローカル音声ファイルインポート用ボタン
 const trackList = document.getElementById('trackList')// 音源(audioタグ)貼っ付ける場所 ulタグ
+const eventList = document.getElementById('eventList')
 
 // 再生・停止
 const playBtn = document.getElementById('playBtn')// 全体(以下master)再生ボタン
@@ -34,6 +35,13 @@ const gainNode = audioCtx.createGain()// 音量用ノード作成
 const pannerOptions = { pan: 0 }
 const panner = new StereoPannerNode(audioCtx, pannerOptions)
 
+const WIDTH = 300
+const HEIGHT = 300
+const analyser = audioCtx.createAnalyser()
+analyser.fftSize = 2048
+const bufferLength = analyser.frequencyBinCount
+const dataArray = new Uint8Array(bufferLength)
+
 // trackListに入れるliタグのid管理(お粗末)
 let idManege = 0
 
@@ -56,7 +64,7 @@ const createElement = (audioData) => {
   const trackElement = document.createElement('li')
   trackElement.classList.add("trackIndex")
   trackElement.id = `track${idManege}`
-  idManege++
+  // idManege++ canvas追加後にお引越し
 
   // audio作成
   const audioElement = document.createElement('audio')
@@ -91,21 +99,36 @@ const renderTrack = (e) => {
     const [trackElement, audioElement] = createElement(audioData)
     audioElement.src = reader.result // audioタグのsrcにファイルソースをセット
 
+    // canvas設定
+    const canvas = document.createElement('canvas')
+    const canvasElement = document.createElement('li')
+    canvas.id = `canvas${idManege}`
+    canvasElement.appendChild(canvas)
+    idManege++
+    canvas.width = WIDTH
+    canvas.height = HEIGHT
+    const canvasCtx = canvas.getContext('2d')
+
     // 音声ソース作成
     const trackCtx = audioCtx.createMediaElementSource(trackElement.children[1])
 
     // 音声ソースを各ノードに接続
     // 末尾(audioCtx.destination)はスピーカだと思えばいい
     // それまでは各処理に必要なエフェクター系
-    trackCtx.connect(gainNode).connect(panner).connect(audioCtx.destination)
+    trackCtx.connect(gainNode).connect(analyser).connect(panner).connect(audioCtx.destination)
 
     // ソース管理用配列(tracks)にオブジェクトの形式で格納
     tracks.push({
       trackElement: trackElement,
+      canvasElement: canvasElement,
+      canvasCtx: canvasCtx,
     })
 
     // trackElement(liタグ)の子要素としてaudioタグをぶち込む
-    tracks.forEach(track => trackList.appendChild(track.trackElement))
+    tracks.forEach(track => {
+      trackList.appendChild(track.trackElement)
+      eventList.appendChild(track.canvasElement)
+    })
     audioImport.value = "" // こいつのお陰で同じファイルを連続選択出来る(※valueが保持されると同じファイルを選択してもinputイベントが発火しない)
   }
   reader.readAsDataURL(audioData)
@@ -121,6 +144,7 @@ const playAudio = () => {
   if (audioCtx.state === 'suspended') {// suspended 一時停止中
     audioCtx.resume();// 一時停止中のものを再開
   }
+  draw()
   tracks.forEach(track => track.trackElement.children[1].play())
 }
 playBtn.addEventListener('click', playAudio)
@@ -145,8 +169,11 @@ pauseBtn.addEventListener('click', pauseAudio)
  */
 const stopAudio = () => {
   console.log('止まり給う')
-  tracks.forEach(track => track.trackElement.children[1].currentTime = 0)
-  tracks.forEach(track => track.trackElement.children[1].pause())
+  tracks.forEach(track => {
+    track.trackElement.children[1].currentTime = 0
+    track.trackElement.children[1].pause()
+  })
+  // tracks.forEach(track => )
 }
 stopBtn.addEventListener('click', stopAudio)
 
@@ -171,3 +198,38 @@ const setPanSliderValue = () => {
   panOutput.textContent = panSlider.value
 }
 panSlider.addEventListener('input', setPanSliderValue, false)
+
+// ビジュアライザーお試し
+
+const draw = () => {
+  drawVisual = requestAnimationFrame(draw)
+  analyser.getByteTimeDomainData(dataArray)
+
+  tracks.forEach(track => {
+    track.canvasCtx.fillStyle = 'rgb(200,200,200)'
+    track.canvasCtx.fillRect(0, 0, WIDTH, HEIGHT)
+
+    track.canvasCtx.lineWidth = 2
+    track.canvasCtx.strokeStyle = 'rgb(0,0,0)'
+
+    track.canvasCtx.beginPath()
+
+    const sliceWidth = WIDTH * 1.0 / bufferLength
+    let x = 0
+
+    for (let i = 0; i < bufferLength; i++) {
+      const v = dataArray[i] / 128.0
+      const y = v * HEIGHT / 2
+
+      if (i === 0) {
+        track.canvasCtx.moveTo(x, y)
+      } else {
+        track.canvasCtx.lineTo(x, y)
+      }
+
+      x += sliceWidth
+    }
+    track.canvasCtx.lineTo(track.canvasElement.children.width, track.canvasElement.children.height / 2)
+    track.canvasCtx.stroke()
+  })
+}
