@@ -126,13 +126,7 @@ const renderTrack = (e) => {
       trackElement: trackElement,
     })
 
-    // pushされたらじゃないと多分not definedって言われる
-    loopBtn.addEventListener('click', () => {
-      tracks.forEach(track => {
-        track.trackElement.children[1].loop = !track.trackElement.children[1].loop
-      })
-      loopBtn.classList.toggle('active')
-    })
+
 
     // trackElement(liタグ)の子要素としてaudioタグをぶち込む
     tracks.forEach(track => { trackList.appendChild(track.trackElement) })
@@ -201,3 +195,12 @@ const setPanSliderValue = () => {
   panOutput.textContent = panSlider.value
 }
 panSlider.addEventListener('input', setPanSliderValue, false)
+
+
+loopBtn.addEventListener('click', () => {
+  tracks.forEach(track => {
+    track.trackElement.children[1].loop = !track.trackElement.children[1].loop
+  })
+  loopBtn.classList.toggle('active')
+  console.log('あいうおえ')
+})
